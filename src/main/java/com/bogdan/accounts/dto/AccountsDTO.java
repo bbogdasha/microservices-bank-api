@@ -1,6 +1,6 @@
 package com.bogdan.accounts.dto;
 
-public class AccuntsDTO {
+public class AccountsDTO {
 
     private Long customerId;
 
@@ -12,14 +12,14 @@ public class AccuntsDTO {
 
     //Getter, Setter, ToString
 
-    public AccuntsDTO(Long customerId, Long accountNumber, String accountType, String branchAddress) {
+    public AccountsDTO(Long customerId, Long accountNumber, String accountType, String branchAddress) {
         this.customerId = customerId;
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.branchAddress = branchAddress;
     }
 
-    public AccuntsDTO() {
+    public AccountsDTO() {
     }
 
     public Long getCustomerId() {
@@ -56,7 +56,7 @@ public class AccuntsDTO {
 
     @Override
     public String toString() {
-        return "AccuntsDTO{" +
+        return "AccountsDTO{" +
                 "customerId=" + customerId +
                 ", accountNumber=" + accountNumber +
                 ", accountType='" + accountType + '\'' +
