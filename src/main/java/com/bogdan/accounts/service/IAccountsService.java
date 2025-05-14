@@ -8,4 +8,10 @@ public interface IAccountsService {
      * @param customerDTO - customer object DTO
      */
     void createAccount(CustomerDTO customerDTO);
+
+    /**
+     * @param mobileNumber - input mobile number
+     * @return Account details based on a given mn
+     */
+    CustomerDTO getAccount(String mobileNumber);
 }

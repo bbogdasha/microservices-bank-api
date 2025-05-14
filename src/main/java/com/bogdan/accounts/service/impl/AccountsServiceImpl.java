@@ -1,10 +1,13 @@
 package com.bogdan.accounts.service.impl;
 
 import com.bogdan.accounts.constants.AccountsConstants;
+import com.bogdan.accounts.dto.AccountsDTO;
 import com.bogdan.accounts.dto.CustomerDTO;
 import com.bogdan.accounts.entity.Accounts;
 import com.bogdan.accounts.entity.Customer;
 import com.bogdan.accounts.exception.CustomerAlreadyExistsException;
+import com.bogdan.accounts.exception.ResourceNotFoundException;
+import com.bogdan.accounts.mapper.AccountsMapper;
 import com.bogdan.accounts.mapper.CustomerMapper;
 import com.bogdan.accounts.repository.AccountsRepository;
 import com.bogdan.accounts.repository.CustomerRepository;
@@ -54,6 +57,32 @@ public class AccountsServiceImpl implements IAccountsService {
 
         Customer savedCustomer = customerRepository.save(customer);
         accountsRepository.save(createNewAccount(savedCustomer));
+    }
+
+    /**
+     * @param mobileNumber - input mobile number
+     * @return Account details based on a given mn
+     */
+    @Override
+    public CustomerDTO getAccount(String mobileNumber) {
+        Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotFoundException(messageSource.getMessage(
+                        "exception.resource.not_found",
+                        new String[]{"Customer", "mobile number", mobileNumber},
+                        Locale.getDefault()))
+        );
+
+        Accounts accounts = accountsRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
+                () -> new ResourceNotFoundException(messageSource.getMessage(
+                        "exception.resource.not_found",
+                        new String[]{"Account", "customer id", customer.getCustomerId().toString()},
+                        Locale.getDefault()))
+        );
+
+        CustomerDTO customerDTO = CustomerMapper.mapToCustomerDTO(customer, new CustomerDTO());
+        customerDTO.setAccountsDTO(AccountsMapper.mapToAccountsDTO(accounts, new AccountsDTO()));
+
+        return customerDTO;
     }
 
     /**

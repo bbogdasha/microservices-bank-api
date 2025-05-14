@@ -2,32 +2,24 @@ package com.bogdan.accounts.dto;
 
 public class CustomerDTO {
 
-    private Long customerId;
-
     private String name;
 
     private String email;
 
     private String mobileNumber;
 
+    private AccountsDTO accountsDTO;
+
     //Getter, Setter, ToString
 
-    public CustomerDTO(Long customerId, String name, String email, String mobileNumber) {
-        this.customerId = customerId;
+    public CustomerDTO(String name, String email, String mobileNumber, AccountsDTO accountsDTO) {
         this.name = name;
         this.email = email;
         this.mobileNumber = mobileNumber;
+        this.accountsDTO = accountsDTO;
     }
 
     public CustomerDTO() {
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
     }
 
     public String getName() {
@@ -54,13 +46,21 @@ public class CustomerDTO {
         this.mobileNumber = mobileNumber;
     }
 
+    public AccountsDTO getAccountsDTO() {
+        return accountsDTO;
+    }
+
+    public void setAccountsDTO(AccountsDTO accountsDTO) {
+        this.accountsDTO = accountsDTO;
+    }
+
     @Override
     public String toString() {
         return "CustomerDTO{" +
-                "customerId=" + customerId +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", mobileNumber='" + mobileNumber + '\'' +
+                ", accountsDTO=" + accountsDTO +
                 '}';
     }
 }

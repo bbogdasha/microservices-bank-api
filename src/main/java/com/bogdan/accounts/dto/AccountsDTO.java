@@ -2,8 +2,6 @@ package com.bogdan.accounts.dto;
 
 public class AccountsDTO {
 
-    private Long customerId;
-
     private Long accountNumber;
 
     private String accountType;
@@ -12,22 +10,13 @@ public class AccountsDTO {
 
     //Getter, Setter, ToString
 
-    public AccountsDTO(Long customerId, Long accountNumber, String accountType, String branchAddress) {
-        this.customerId = customerId;
+    public AccountsDTO(Long accountNumber, String accountType, String branchAddress) {
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.branchAddress = branchAddress;
     }
 
     public AccountsDTO() {
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
     }
 
     public Long getAccountNumber() {
@@ -57,8 +46,7 @@ public class AccountsDTO {
     @Override
     public String toString() {
         return "AccountsDTO{" +
-                "customerId=" + customerId +
-                ", accountNumber=" + accountNumber +
+                "accountNumber=" + accountNumber +
                 ", accountType='" + accountType + '\'' +
                 ", branchAddress='" + branchAddress + '\'' +
                 '}';
