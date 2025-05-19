@@ -52,9 +52,6 @@ public class AccountsServiceImpl implements IAccountsService {
                     Locale.getDefault()));
         }
 
-        customer.setCreatedAt(LocalDateTime.now());
-        customer.setCreatedBy("ADMIN");
-
         Customer savedCustomer = customerRepository.save(customer);
         accountsRepository.save(createNewAccount(savedCustomer));
     }
@@ -115,7 +112,7 @@ public class AccountsServiceImpl implements IAccountsService {
 
             Optional<Customer> checkCustomerMobile = customerRepository.findByMobileNumber(customerDTO.getMobileNumber());
 
-            if (checkCustomerMobile.isPresent()) {
+            if (checkCustomerMobile.isPresent() && !customer.getMobileNumber().equals(customerDTO.getMobileNumber())) {
                 throw new CustomerAlreadyExistsException(messageSource.getMessage(
                         "exception.customer.update.mobile_number",
                         new String[]{customerDTO.getMobileNumber()},
@@ -162,9 +159,6 @@ public class AccountsServiceImpl implements IAccountsService {
         newAccount.setAccountNumber(randomAccNumber);
         newAccount.setAccountType(AccountsConstants.SAVINGS);
         newAccount.setBranchAddress(AccountsConstants.ADDRESS);
-
-        newAccount.setCreatedAt(LocalDateTime.now());
-        newAccount.setCreatedBy("ADMIN");
 
         return newAccount;
     }

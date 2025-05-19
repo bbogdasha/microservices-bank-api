@@ -4,12 +4,16 @@ import com.bogdan.accounts.constants.AccountsConstants;
 import com.bogdan.accounts.dto.CustomerDTO;
 import com.bogdan.accounts.dto.ResponseDTO;
 import com.bogdan.accounts.service.IAccountsService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Validated
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class AccountsController {
 
@@ -20,7 +24,7 @@ public class AccountsController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseDTO> createAccount(@RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<ResponseDTO> createAccount(@Valid @RequestBody CustomerDTO customerDTO) {
         iAccountsService.createAccount(customerDTO);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -28,7 +32,9 @@ public class AccountsController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<CustomerDTO> getAccountDetails(@RequestParam String mobileNumber) {
+    public ResponseEntity<CustomerDTO> getAccountDetails(@RequestParam
+                                                         @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits.")
+                                                             String mobileNumber) {
         CustomerDTO customerDTO = iAccountsService.getAccount(mobileNumber);
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -36,7 +42,7 @@ public class AccountsController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ResponseDTO> updateAccountDetails(@RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<ResponseDTO> updateAccountDetails(@Valid @RequestBody CustomerDTO customerDTO) {
         boolean isUpdated = iAccountsService.updateAccount(customerDTO);
 
         if (isUpdated) {
@@ -51,7 +57,9 @@ public class AccountsController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDTO> deleteAccountDetails(@RequestParam String mobileNumber) {
+    public ResponseEntity<ResponseDTO> deleteAccountDetails(@RequestParam
+                                                            @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits.")
+                                                                String mobileNumber) {
         boolean isDeleted = iAccountsService.deleteAccount(mobileNumber);
 
         if (isDeleted) {
