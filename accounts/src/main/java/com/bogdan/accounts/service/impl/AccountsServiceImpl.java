@@ -63,14 +63,14 @@ public class AccountsServiceImpl implements IAccountsService {
     public CustomerDTO getAccount(String mobileNumber) {
         Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
                 () -> new ResourceNotFoundException(messageSource.getMessage(
-                        "exception.resource.not_found",
+                        "exception.customer.resource.not_found",
                         new String[]{"Customer", "mobile number", mobileNumber},
                         Locale.getDefault()))
         );
 
         Accounts accounts = accountsRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
                 () -> new ResourceNotFoundException(messageSource.getMessage(
-                        "exception.resource.not_found",
+                        "exception.customer.resource.not_found",
                         new String[]{"Account", "customer id", customer.getCustomerId().toString()},
                         Locale.getDefault()))
         );
@@ -93,7 +93,7 @@ public class AccountsServiceImpl implements IAccountsService {
         if (accountsDTO != null) {
             Accounts accounts = accountsRepository.findById(accountsDTO.getAccountNumber()).orElseThrow(
                     () -> new ResourceNotFoundException(messageSource.getMessage(
-                            "exception.resource.not_found",
+                            "exception.customer.resource.not_found",
                             new String[]{"Account", "account number", accountsDTO.getAccountNumber().toString()},
                             Locale.getDefault()))
             );
@@ -104,7 +104,7 @@ public class AccountsServiceImpl implements IAccountsService {
             Long customerId = accounts.getCustomerId();
             Customer customer = customerRepository.findById(customerId).orElseThrow(
                     () -> new ResourceNotFoundException(messageSource.getMessage(
-                            "exception.resource.not_found",
+                            "exception.customer.resource.not_found",
                             new String[]{"Customer", "customer id", customerId.toString()},
                             Locale.getDefault()))
             );
@@ -135,7 +135,7 @@ public class AccountsServiceImpl implements IAccountsService {
     public boolean deleteAccount(String mobileNumber) {
         Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
                 () -> new ResourceNotFoundException(messageSource.getMessage(
-                        "exception.resource.not_found",
+                        "exception.customer.resource.not_found",
                         new String[]{"Customer", "mobile number", mobileNumber},
                         Locale.getDefault()))
         );
