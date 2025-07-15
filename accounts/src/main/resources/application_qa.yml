@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: "qa"
+
+build:
+  version: "1.0.0-qa"
+
+accounts:
+  message: "Bank MS: Accounts qa APIs "
+  contactDetails:
+    name: "QA lead"
+    email: "qa_lead@gmail.com"
+  onCallSupport:
+    - (234) 456-7890
+    - (234) 666-7890

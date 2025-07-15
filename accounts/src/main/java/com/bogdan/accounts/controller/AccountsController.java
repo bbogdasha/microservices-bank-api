@@ -1,6 +1,7 @@
 package com.bogdan.accounts.controller;
 
 import com.bogdan.accounts.constants.AccountsConstants;
+import com.bogdan.accounts.dto.AccountsContactInfoDTO;
 import com.bogdan.accounts.dto.CustomerDTO;
 import com.bogdan.accounts.dto.ResponseDTO;
 import com.bogdan.accounts.service.IAccountsService;
@@ -8,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,6 +25,9 @@ public class AccountsController {
 
     @Value("${build.version}")
     private String buildVersion;
+
+    @Autowired
+    private AccountsContactInfoDTO contactInfoDTO;
 
     private IAccountsService iAccountsService;
 
@@ -90,5 +95,13 @@ public class AccountsController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(buildVersion);
+    }
+
+    @Operation(summary = "Contact Info details that can be reached out in case of any issues")
+    @GetMapping("/contact-info")
+    public ResponseEntity<AccountsContactInfoDTO> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(contactInfoDTO);
     }
 }
