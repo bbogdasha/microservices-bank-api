@@ -14,3 +14,22 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  config:
+    import:
+      - "application_qa.yml"
+      - "application_prod.yml"
+  profiles:
+    active:
+      - "qa"
+
+build:
+  version: "1.0.0-dev"
+
+cards:
+  message: "Bank MS: Cards dev APIs "
+  contactDetails:
+    name: "Dev"
+    email: "dev@gmail.com"
+  onCallSupport:
+    - (111) 456-7890
+    - (567) 999-7890

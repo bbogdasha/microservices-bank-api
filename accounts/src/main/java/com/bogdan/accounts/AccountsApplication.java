@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 		info = @Info(
 				title = "Accounts microservice REST API Documentation",
 				description = "Training",
-				version = "v0.0.1"))
+				version = "1.0.0"))
 public class AccountsApplication {
 
 	public static void main(String[] args) {

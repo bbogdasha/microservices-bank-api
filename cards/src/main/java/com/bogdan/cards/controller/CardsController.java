@@ -1,6 +1,7 @@
 package com.bogdan.cards.controller;
 
 import com.bogdan.cards.constants.CardsConstants;
+import com.bogdan.cards.dto.CardsContactInfoDTO;
 import com.bogdan.cards.dto.CardsDTO;
 import com.bogdan.cards.dto.ResponseDTO;
 import com.bogdan.cards.service.ICardsService;
@@ -8,6 +9,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,12 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class CardsController {
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+    @Autowired
+    private CardsContactInfoDTO cardsContactInfoDto;
 
     private ICardsService iCardsService;
 
@@ -76,5 +85,21 @@ public class CardsController {
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDTO(CardsConstants.STATUS_417, CardsConstants.MESSAGE_417_DELETE));
         }
+    }
+
+    @Operation(summary = "Information about version of Cards REST API")
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getBuildInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(buildVersion);
+    }
+
+    @Operation(summary = "Contact Info details that can be reached out in case of any issues")
+    @GetMapping("/contact-info")
+    public ResponseEntity<CardsContactInfoDTO> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(cardsContactInfoDto);
     }
 }
