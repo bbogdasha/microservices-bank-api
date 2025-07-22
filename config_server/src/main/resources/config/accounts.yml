@@ -1,0 +1,11 @@
+build:
+  version: "1.0.0-dev"
+
+accounts:
+  message: "Bank MS: Accounts dev APIs "
+  contactDetails:
+    name: "Dev"
+    email: "dev@gmail.com"
+  onCallSupport:
+    - (111) 456-7890
+    - (567) 999-7890
