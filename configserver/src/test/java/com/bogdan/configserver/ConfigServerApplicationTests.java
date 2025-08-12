@@ -1,4 +1,4 @@
-package com.bogdan.config_server;
+package com.bogdan.configserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

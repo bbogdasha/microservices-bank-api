@@ -1,4 +1,4 @@
-package com.bogdan.config_server;
+package com.bogdan.configserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
