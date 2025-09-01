@@ -82,7 +82,7 @@ services:
     image: "ms_bank/loans:s7.0"
     container_name: loans-ms
     ports:
-      - "8090:8090"
+      - "8100:8100"
     depends_on:
       configserver:
         condition: service_healthy

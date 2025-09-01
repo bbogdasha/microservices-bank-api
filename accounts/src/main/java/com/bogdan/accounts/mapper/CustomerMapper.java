@@ -1,6 +1,7 @@
 package com.bogdan.accounts.mapper;
 
 import com.bogdan.accounts.dto.CustomerDTO;
+import com.bogdan.accounts.dto.CustomerDetailsDTO;
 import com.bogdan.accounts.entity.Customer;
 
 public class CustomerMapper {
@@ -10,6 +11,13 @@ public class CustomerMapper {
         customerDTO.setEmail(customer.getEmail());
         customerDTO.setMobileNumber(customer.getMobileNumber());
         return customerDTO;
+    }
+
+    public static CustomerDetailsDTO mapToCustomerDetailsDTO(Customer customer, CustomerDetailsDTO customerDetailsDTO) {
+        customerDetailsDTO.setName(customer.getName());
+        customerDetailsDTO.setEmail(customer.getEmail());
+        customerDetailsDTO.setMobileNumber(customer.getMobileNumber());
+        return customerDetailsDTO;
     }
 
     public static Customer mapToCustomer(CustomerDTO customerDTO, Customer customer) {
