@@ -19,7 +19,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2024.0.0</spring-cloud.version>
-		<docker-tag>s8.0</docker-tag>
+		<docker-tag>s9.0</docker-tag>
 	</properties>
 
 	<dependencies>

@@ -67,3 +67,9 @@ info:
     name: "accounts"
     description: "Bank Account Microservice"
     version: "1.0.0"
+
+logging:
+  level:
+    com:
+      bogdan:
+        accounts: DEBUG

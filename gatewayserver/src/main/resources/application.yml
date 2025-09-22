@@ -41,3 +41,9 @@ info:
     name: "gatewaysarver"
     description: "Bank Gateway Server Microservice"
     version: "1.0.0"
+
+logging:
+  level:
+    com:
+      bogdan:
+        gatewayserver: DEBUG

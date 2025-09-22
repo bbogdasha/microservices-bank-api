@@ -46,7 +46,7 @@ services:
       service: microservice-db-config
 
   configserver:
-    image: "ms_bank/configserver:s8.0"
+    image: "ms_bank/configserver:s9.0"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -64,7 +64,7 @@ services:
       service: microservice-base-config
 
   eurekaserver:
-    image: "ms_bank/eurekaserver:s8.0"
+    image: "ms_bank/eurekaserver:s9.0"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -84,7 +84,7 @@ services:
       SPRING_APPLICATION_NAME: "eurekaserver"
 
   accounts:
-    image: "ms_bank/accounts:s8.0"
+    image: "ms_bank/accounts:s9.0"
     container_name: accounts-ms
     ports:
       - "8080:8080"
@@ -99,7 +99,7 @@ services:
       service: microservice-eureka-config
 
   loans:
-    image: "ms_bank/loans:s8.0"
+    image: "ms_bank/loans:s9.0"
     container_name: loans-ms
     ports:
       - "8100:8100"
@@ -114,7 +114,7 @@ services:
       service: microservice-eureka-config
 
   cards:
-    image: "ms_bank/cards:s8.0"
+    image: "ms_bank/cards:s9.0"
     container_name: cards-ms
     ports:
       - "9000:9000"
