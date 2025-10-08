@@ -31,6 +31,10 @@ spring:
 
   config:
     import: "optional:configserver:http://localhost:8071/"
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
   rabbitmq:
     host: "localhost"
     port: 5672
@@ -81,3 +85,10 @@ logging:
     com:
       bogdan:
         accounts: DEBUG
+
+resilience4j.ratelimiter:
+  configs:
+    default:
+      timeoutDuration: 1000
+      limitRefreshPeriod: 5000
+      limitForPeriod: 1
