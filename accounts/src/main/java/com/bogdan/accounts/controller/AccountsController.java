@@ -5,6 +5,7 @@ import com.bogdan.accounts.dto.AccountsContactInfoDTO;
 import com.bogdan.accounts.dto.CustomerDTO;
 import com.bogdan.accounts.dto.ResponseDTO;
 import com.bogdan.accounts.service.IAccountsService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -16,12 +17,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Tag(name = "REST APIs for Accounts")
 @RestController
 @Validated
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class AccountsController {
+
+    private static final Logger logger = LoggerFactory.getLogger(AccountsController.class);
 
     @Value("${build.version}")
     private String buildVersion;
@@ -91,15 +96,24 @@ public class AccountsController {
 
     @Operation(summary = "Information about version of Account REST API")
     @GetMapping("/build-info")
+    @RateLimiter(name= "getBuildInfo", fallbackMethod = "getBuildInfoFallback")
     public ResponseEntity<String> getBuildInfo() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(buildVersion);
     }
 
+    public ResponseEntity<String> getBuildInfoFallback(Throwable throwable) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("Default build info. TEST.");
+    }
+
     @Operation(summary = "Contact Info details that can be reached out in case of any issues")
     @GetMapping("/contact-info")
     public ResponseEntity<AccountsContactInfoDTO> getContactInfo() {
+        logger.debug("Invoked Accounts contact-info API");
+        if (Math.random() < 0.7) throw new RuntimeException("Simulated error");
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(contactInfoDTO);
